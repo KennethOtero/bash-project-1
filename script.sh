@@ -1,12 +1,20 @@
 #!/bin/bash
 
+# =======================================
+# Kenneth Otero
+# Scripting Languages
+# October 2, 2024
+# Bash Project 1
+# =======================================
+
 # Display script information
 function scriptInformation() {
+    echo "Bash Project 1 - Time Zone Converter"
     echo "Usage $0 -i <input-time-zone> -o <output-time-zone>"
     echo "Options:"
     echo "  -i <input-time-zone>: Time zone you wish to convert from. Choices: EST, CST, MST, and PST."
     echo "  -o <output-time-zone>: Time zone you wish to convert to. Choices: BST, CEST, and EEST."
-    echo "  -h: Adding this option after the script name and omitting the other options will display help information."
+    echo "  -h: Adding this option after the script name and omitting the other options will display this information."
 }
 
 # Display help information
@@ -73,63 +81,65 @@ currentTime=""
 convertedTime=""
 case $inputTimeZone in
     "PST")
-        currentTime=$(TZ="America/Los_Angeles" date +"%H:%M")
+        currentTime=$(TZ="CEST+7" date +"%H:%M")
         case $outputTimeZone in
             "BST")
-                convertedTime=$(date -d "$currentTime +8 hours" +"%H:%M")
+                convertedTime=$(date -d "$currentTime -11 hours" +"%H:%M")
                 ;;
             "CEST")
-                convertedTime=$(date -d "$currentTime +9 hours" +"%H:%M")
+                convertedTime=$(date -d "$currentTime -12 hours" +"%H:%M")
                 ;;
             "EEST")
-                convertedTime=$(date -d "$currentTime +10 hours" +"%H:%M")
+                convertedTime=$(date -d "$currentTime -13 hours" +"%H:%M")
                 ;;
         esac
         ;;
     "MST")
-        currentTime=$(TZ="America/Denver" date +"%H:%M")
+        currentTime=$(TZ="CEST+6" date +"%H:%M")
         case $outputTimeZone in
             "BST")
-                convertedTime=$(date -d "$currentTime +7 hours" +"%H:%M")
+                convertedTime=$(date -d "$currentTime -10 hours" +"%H:%M")
                 ;;
             "CEST")
-                convertedTime=$(date -d "$currentTime +8 hours" +"%H:%M")
+                convertedTime=$(date -d "$currentTime -11 hours" +"%H:%M")
                 ;;
             "EEST")
-                convertedTime=$(date -d "$currentTime +9 hours" +"%H:%M")
+                convertedTime=$(date -d "$currentTime -12 hours" +"%H:%M")
                 ;;
         esac
         ;;
     "CST")
-        currentTime=$(TZ="America/Chicago" date +"%H:%M")
+        currentTime=$(TZ="CEST+5" date +"%H:%M")
         case $outputTimeZone in
             "BST")
-                convertedTime=$(date -d "$currentTime +6 hours" +"%H:%M")
+                convertedTime=$(date -d "$currentTime -9 hours" +"%H:%M")
                 ;;
             "CEST")
-                convertedTime=$(date -d "$currentTime +7 hours" +"%H:%M")
+                convertedTime=$(date -d "$currentTime -10 hours" +"%H:%M")
                 ;;
             "EEST")
-                convertedTime=$(date -d "$currentTime +8 hours" +"%H:%M")
+                convertedTime=$(date -d "$currentTime -11 hours" +"%H:%M")
                 ;;
         esac
         ;;
     "EST")
-        currentTime=$(TZ="America/New_York" date +"%H:%M")
+        currentTime=$(TZ="CEST+4" date +"%H:%M")
         case $outputTimeZone in
             "BST")
-                convertedTime=$(date -d "$currentTime +5 hours" +"%H:%M")
+                convertedTime=$(date -d "$currentTime -8 hours" +"%H:%M")
                 ;;
             "CEST")
-                convertedTime=$(date -d "$currentTime +6 hours" +"%H:%M")
+                convertedTime=$(date -d "$currentTime -9 hours" +"%H:%M")
                 ;;
             "EEST")
-                convertedTime=$(date -d "$currentTime +7 hours" +"%H:%M")
+                convertedTime=$(date -d "$currentTime -10 hours" +"%H:%M")
                 ;;
         esac
 esac
 
 # Display result and save it in a text file
-echo "Thank you for using this script. You have converted $currentTime $inputTimeZone to $convertedTime $outputTimeZone." > "result.txt"
+result="Thank you for using this script. You have converted $currentTime $inputTimeZone to $convertedTime $outputTimeZone."
+echo $result
+echo $result > "result.txt"
 echo "These results have also been saved within the result.txt file."
 exit 0
